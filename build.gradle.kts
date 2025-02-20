@@ -1,17 +1,19 @@
 import cn.lalaki.pub.BaseCentralPortalPlusExtension.PublishingType
 
-val user = "OmyDaGreat"
-val repo = "KotlinLibraryTemplate"
-val g = "xyz.malefic"
-val artifact = "kotlinlibrarytemplate"
+val user = "MaleficCompose"
+val repo = "MaleficStyle"
+val g = "xyz.malefic.compose"
+val artifact = "style"
 val v = "1.0.0"
-val desc = "A Kotlin library template with everything you need to get started"
+val desc = "A styling library for compose based more on css and dsl, wrapping modifiers"
 
 val localMavenRepo = uri(layout.buildDirectory.dir("repo").get())
 
 plugins {
+    alias(libs.plugins.compose.kotlin)
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlinter)
+    alias(libs.plugins.compose)
     alias(libs.plugins.central)
     alias(libs.plugins.dokka)
     `maven-publish`
@@ -22,12 +24,16 @@ group = g
 version = v
 
 repositories {
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     mavenCentral()
+    google()
 }
 
 dependencies {
+    implementation(compose.desktop.common)
     implementation(libs.kermit)
     testImplementation(kotlin("test"))
+    testImplementation(compose.desktop.currentOs)
 }
 
 tasks.apply {

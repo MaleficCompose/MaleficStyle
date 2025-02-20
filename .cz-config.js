@@ -26,7 +26,7 @@ module.exports = {
     {value: 'update', name: 'update:     Update dependencies'},
   ],
 
-  scopes: [{name: 'logger'}, {name: 'resources'}, {name: 'test'}],
+  scopes: [{name: 'dsl'}, {name: 'test'}, {name: 'func'}, {name: 'project'}],
 
   usePreparedCommit: false, // to re-use commit from ./.git/COMMIT_EDITMSG
   allowTicketNumber: false,
