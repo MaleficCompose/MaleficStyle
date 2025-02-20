@@ -1,0 +1,18 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:xyz.malefic.compose.style////PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/index.html
+$dokka.location:xyz.malefic.compose.style//first/kotlin.Pair[kotlin.Pair[kotlin.Pair[androidx.compose.ui.unit.Dp,androidx.compose.ui.unit.Dp],androidx.compose.ui.unit.Dp],androidx.compose.ui.unit.Dp]#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/first.html
+$dokka.location:xyz.malefic.compose.style//fourth/kotlin.Pair[kotlin.Pair[kotlin.Pair[androidx.compose.ui.unit.Dp,androidx.compose.ui.unit.Dp],androidx.compose.ui.unit.Dp],androidx.compose.ui.unit.Dp]#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/fourth.html
+$dokka.location:xyz.malefic.compose.style//malefic/#kotlin.Function1[xyz.malefic.compose.style.MaleficStyle,kotlin.Unit]/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/malefic.html
+$dokka.location:xyz.malefic.compose.style//second/kotlin.Pair[kotlin.Pair[kotlin.Pair[androidx.compose.ui.unit.Dp,androidx.compose.ui.unit.Dp],androidx.compose.ui.unit.Dp],androidx.compose.ui.unit.Dp]#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/second.html
+$dokka.location:xyz.malefic.compose.style//third/kotlin.Pair[kotlin.Pair[kotlin.Pair[androidx.compose.ui.unit.Dp,androidx.compose.ui.unit.Dp],androidx.compose.ui.unit.Dp],androidx.compose.ui.unit.Dp]#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/third.html
+$dokka.location:xyz.malefic.compose.style/MaleficStyle///PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/-malefic-style/index.html
+$dokka.location:xyz.malefic.compose.style/MaleficStyle/MaleficStyle/#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/-malefic-style/-malefic-style.html
+$dokka.location:xyz.malefic.compose.style/MaleficStyle/background/#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/-malefic-style/background.html
+$dokka.location:xyz.malefic.compose.style/MaleficStyle/border/#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/-malefic-style/border.html
+$dokka.location:xyz.malefic.compose.style/MaleficStyle/build/#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/-malefic-style/build.html
+$dokka.location:xyz.malefic.compose.style/MaleficStyle/height/#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/-malefic-style/height.html
+$dokka.location:xyz.malefic.compose.style/MaleficStyle/onClick/#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/-malefic-style/on-click.html
+$dokka.location:xyz.malefic.compose.style/MaleficStyle/padding/#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/-malefic-style/padding.html
+$dokka.location:xyz.malefic.compose.style/MaleficStyle/width/#/PointingToDeclaration/-malefic-style/xyz.malefic.compose.style/-malefic-style/width.html
+xyz.malefic.compose.style
