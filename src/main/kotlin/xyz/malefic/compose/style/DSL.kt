@@ -8,4 +8,4 @@ import androidx.compose.ui.Modifier
  * @param block A lambda with receiver that configures the `ModifierWrapperBuilder`.
  * @return A `Modifier` configured by the `ModifierWrapperBuilder`.
  */
-fun malefic(block: MaleficStyle.() -> Unit): Modifier = MaleficStyle().apply(block).build()
+fun malefic(block: MaleficStyle.() -> Unit): Modifier = MaleficStyle().apply(block).modifier

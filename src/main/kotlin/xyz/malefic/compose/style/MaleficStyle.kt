@@ -5,27 +5,40 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 
-@Suppress("MemberVisibilityCanBePrivate")
+/**
+ * A class that defines various styles to be applied to a Compose UI element.
+ *
+ * This class includes properties for padding, background, border, clickable actions, size, and more,
+ * each of which can be customized and applied to a `Modifier`.
+ */
+@Suppress("MemberVisibilityCanBePrivate", "UNCHECKED_CAST")
 class MaleficStyle {
+    /**
+     * Modifier to be applied to the element.
+     */
+    var modifier: Modifier = Modifier
+
     /**
      * Padding values to be applied to the element.
      *
      * The padding can be:
      * - `PaddingValues` for custom padding values
      * - `Dp` for uniform padding on all sides
-     * - `Pair<Dp, Dp>` for horizontal and vertical padding
-     * - `Pair<Pair<Dp, Dp>, Dp>` for start, top, end, bottom padding
+     * - `Dp to Dp` for horizontal and vertical padding
+     * - `Dp to Dp to Dp to Dp` for start, top, end, bottom padding
      */
     var padding: Any? = null
+        set(value) {
+            field = value
+            modifier = modifier.buildPadding()
+        }
 
     /**
      * Applies the padding values defined in the `MaleficStyle` to the `Modifier`.
@@ -34,21 +47,16 @@ class MaleficStyle {
      * @return A `Modifier` with the applied padding values.
      */
     private fun Modifier.buildPadding(): Modifier =
-        when (val paddingValue = padding) {
-            is PaddingValues -> padding(paddingValue)
-            is Dp -> padding(paddingValue)
+        when (val paddingVal = padding) {
+            is PaddingValues -> padding(paddingVal)
+            is Dp -> padding(paddingVal)
             is Pair<*, *> -> {
-                when (paddingValue.first) {
-                    is Dp -> {
-                        val (horizontal, vertical) = paddingValue
-                        padding(horizontal as Dp, vertical as Dp)
-                    }
-                    is Pair<*, *> -> {
-                        val pvp = paddingValue as Pair<Pair<Pair<Dp, Dp>, Dp>, Dp>
-                        padding(pvp.first(), pvp.second, pvp.third(), pvp.fourth())
-                    }
-                    else -> this
-                }
+                val (horizontal, vertical) = paddingVal as Pair<Dp, Dp>
+                padding(horizontal, vertical)
+            }
+            is Quadruple<*, *, *, *> -> {
+                val quad = paddingVal as Quadruple<Dp, Dp, Dp, Dp>
+                padding(quad.first, quad.second, quad.third, quad.fourth)
             }
             else -> this
         }
@@ -61,6 +69,10 @@ class MaleficStyle {
      * - `Pair<Color, Shape>` for shaped color background
      */
     var background: Any? = null
+        set(value) {
+            field = value
+            modifier = modifier.buildBackground()
+        }
 
     /**
      * Applies the background defined in the `MaleficStyle` to the `Modifier`.
@@ -88,6 +100,10 @@ class MaleficStyle {
      * - `Pair<Pair<Dp, Color|Brush>, Shape>` for width, color/brush, and shape
      */
     var border: Any? = null
+        set(value) {
+            field = value
+            modifier = modifier.buildBorder()
+        }
 
     /**
      * Applies the border values defined in the `MaleficStyle` to the `Modifier`.
@@ -103,14 +119,14 @@ class MaleficStyle {
                 when (first) {
                     is Dp -> border(first, second as Color)
                     is BorderStroke -> border(first, second as Shape)
-                    is Pair<*, *> -> {
-                        val (width, fillOrBrush) = first
-                        when (fillOrBrush) {
-                            is Color -> border(width as Dp, fillOrBrush, second as Shape)
-                            is Brush -> border(width as Dp, fillOrBrush, second as Shape)
-                            else -> this
-                        }
-                    }
+                    else -> this
+                }
+            }
+            is Triple<*, *, *> -> {
+                val (width, fillOrBrush, shape) = borderValue
+                when (fillOrBrush) {
+                    is Color -> border(width as Dp, fillOrBrush, shape as Shape)
+                    is Brush -> border(width as Dp, fillOrBrush, shape as Shape)
                     else -> this
                 }
             }
@@ -121,6 +137,10 @@ class MaleficStyle {
      * Clickable action to be applied to the element.
      */
     var onClick: (() -> Unit)? = null
+        set(value) {
+            field = value
+            modifier = modifier.buildClickable()
+        }
 
     /**
      * Applies the clickable action defined in the `MaleficStyle` to the `Modifier`.
@@ -131,45 +151,23 @@ class MaleficStyle {
     private fun Modifier.buildClickable(): Modifier = onClick?.let { clickable(onClick = it) } ?: this
 
     /**
-     * Width to be applied to the element.
-     */
-    var width: Dp? = null
-
-    /**
-     * Height to be applied to the element.
-     */
-    var height: Dp? = null
-
-    /**
-     * Applies the width and height defined in the `MaleficStyle` to the `Modifier`.
+     * Size values to be applied to the element.
      *
-     * @receiver The `Modifier` to which the size will be applied.
-     * @return A `Modifier` with the applied size.
+     * The size can be defined using the [SizeStyle] class.
      */
-    private fun Modifier.buildSize(): Modifier =
-        this.let { base ->
-            base
-                .run { width?.let { width(it) } ?: this }
-                .run { height?.let { height(it) } ?: this }
+    var size: SizeStyle = SizeStyle()
+        set(value) {
+            field = value
+            modifier = modifier.build(value)
         }
 
     /**
-     * Builds the final Modifier by applying all defined styles in order:
-     * padding -> background -> border -> clickable -> size
+     * Applies the given block to the `SizeStyle` and updates the `modifier` accordingly.
+     *
+     * @param block The block of code to apply to the `SizeStyle`.
      */
-    fun build(): Modifier =
-        Modifier
-            .buildPadding()
-            .buildBackground()
-            .buildBorder()
-            .buildClickable()
-            .buildSize()
+    operator fun SizeStyle.invoke(block: SizeStyle.() -> Unit) {
+        size.apply(block)
+        this@MaleficStyle.modifier = this@MaleficStyle.modifier.then(modifier)
+    }
 }
-
-fun Pair<Pair<Pair<Dp, Dp>, Dp>, Dp>.first(): Dp = first.first.first
-
-fun Pair<Pair<Pair<Dp, Dp>, Dp>, Dp>.second(): Dp = first.first.second
-
-fun Pair<Pair<Pair<Dp, Dp>, Dp>, Dp>.third(): Dp = first.second
-
-fun Pair<Pair<Pair<Dp, Dp>, Dp>, Dp>.fourth(): Dp = second
